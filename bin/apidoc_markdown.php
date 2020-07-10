@@ -25,29 +25,40 @@ file_exists($opts['o']) ? null : mkdir($opts['o'], 0777, true);
 // 2.加载接口文档数据源数据
 $api_data = json_decode(file_get_contents($opts['i'] . DIRECTORY_SEPARATOR . 'api_data.json'), true);
 
-// 3.数据源数据分组
+// 3.定义 readme 文件
+$readme_path = $opts['o'] . DIRECTORY_SEPARATOR . 'readme.md';
+file_exists($readme_path) ? unlink($readme_path) : null;
+$readme_file    = fopen($readme_path, 'w');
+$readme_content = '';
+
+// 4.数据源数据分组
 list($group_api_data, $group_name) = [[], 'group'];
 foreach ($api_data as $value) {
     $group_api_data[$value[$group_name]][] = $value;
 }
+unset($api_data);
 
-// 4.遍历分组生成对应的文件
+// 5.遍历分组生成对应的文件
 foreach ($group_api_data as $group_name => $api_data) {
-    // 4.1假设有生成过了则删除
+    // 5.1假设有生成过了则删除
     $api_doc_markdown_path = $opts['o'] . DIRECTORY_SEPARATOR . $group_name . '.md';
     if (file_exists($api_doc_markdown_path)) {
         unlink($api_doc_markdown_path);
     }
 
-    // 4.2生成 md 文件
+    // 5.2生成 md 文件
     $api_doc_markdown_file = fopen($api_doc_markdown_path, 'w');
 
-    // 4.3编写目录内容
+    // 5.3处理 readme 标题
+    $readme_content .= "\n#### " . $group_name . "\n";
+
+    // 5.3编写目录内容 & 处理 readme 子标题
     foreach ($api_data as $item_data) {
         fwrite($api_doc_markdown_file, '- [x] [' . $item_data['title'] . '](#' . $item_data['name'] . ")\n");
+        $readme_content .= '- [x] ' . $item_data['title'] . "\n";
     }
 
-    // 4.4编写主体内容
+    // 5.4编写主体内容
     foreach ($api_data as $item_data) {
         // dom.title
         fwrite($api_doc_markdown_file, '#### ' . $item_data['title'] . "\n");
@@ -100,6 +111,9 @@ foreach ($group_api_data as $group_name => $api_data) {
         fwrite($api_doc_markdown_file, "\n\n");
     }
 
-    // 5.关闭文件
+    // 5.5关闭文件
     fclose($api_doc_markdown_file);
 }
+
+// 6. readme
+fwrite($readme_file, $readme_content) && fclose($readme_file);
