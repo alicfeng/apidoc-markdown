@@ -22,5 +22,8 @@
   "require": {
     "php": "^7.1",
     "ext-json": "*"
-  }
+  },
+  "bin": [
+    "bin/apidoc_markdown.php"
+  ]
 }
