@@ -1,5 +1,5 @@
 {
-  "name": "alicfeng/apidoc_markdown",
+  "name": "alicfeng/apidoc-markdown",
   "description": "apidoc to markdown",
   "type": "library",
   "license": "MIT",
@@ -24,6 +24,6 @@
     "ext-json": "*"
   },
   "bin": [
-    "bin/apidoc_markdown.php"
+    "bin/apidoc_markdown"
   ]
 }

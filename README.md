@@ -11,7 +11,7 @@ composer require alicfeng/apidoc_markdown --dev -vvv
 ## 使用
 #### 帮助使用
 ```shell
-➜ vendor/bin/apidoc_markdown.php
+➜ vendor/bin/apidoc_markdown -h
 Usage: apidoc_markdown [options...]
 -i    input directory  
 -o    output directory 
@@ -19,5 +19,5 @@ Usage: apidoc_markdown [options...]
 
 #### 导出使用
 ```shell
-➜ vendor/bin/apidoc_markdown.php -i {input} -o {output}
+➜ vendor/bin/apidoc_markdown -i {input} -o {output}
 ```
