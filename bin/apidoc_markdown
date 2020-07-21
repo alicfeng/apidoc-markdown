@@ -12,8 +12,8 @@
 $opts = getopt('o:i:');
 if (2 != count($opts)) {
     echo "Usage: apidoc-markdown [options...]\n" .
-         "-i    input directory  \n" .
-         "-o    output directory \n";
+        "-i    input directory  \n" .
+        "-o    output directory \n";
     exit(0);
 }
 list($output, $input) = [$opts['o'], $opts['i']];
@@ -68,6 +68,19 @@ foreach ($group_api_data as $group_name => $api_data) {
 
         // dom.method & dom.url
         fwrite($api_doc_markdown_file, "```\n" . $item_data['type'] . '  ' . $item_data['url'] . "\n```\n");
+
+        // dom.header
+        if (array_key_exists('header', $item_data)) {
+            if (array_key_exists('fields', $item_data['header'])) {
+                if (array_key_exists('Header', $item_data['header']['fields'])) {
+                    fwrite($api_doc_markdown_file, "\n###### 请求头部\n");
+                    fwrite($api_doc_markdown_file, "| 字段 | 类型 | 必选 | 默认值 | 描述 | \n|:----:|:----:|:----:|:----:|:----:|\n");
+                    foreach ($item_data['header']['fields']['Header'] as $field) {
+                        fwrite($api_doc_markdown_file, '| `' . $field['field'] . '` | `' . $field['type'] . '` | ' . ($field['optional'] ? '否' : '是') . ' | ' . $field['defaultValue'] . ' | ' . $field['description'] . " | \n");
+                    }
+                }
+            }
+        }
 
         // dom.request_parameters
         if (array_key_exists('parameter', $item_data)) {
