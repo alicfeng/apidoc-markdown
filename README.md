@@ -42,3 +42,23 @@ Usage: apidoc_markdown [options...]
 
 ➜ apidoc_markdown -i {input} -o {output}
 ```
+
+#### 效果实例
+```shell
+➜  apidoc-markdown git:(master) ✗ apidoc_markdown -i ~/tutorial/github/api.samego.com/document -o docs
+➜  apidoc-markdown git:(master) ✗ tree docs                                                                          
+docs
+├── documents
+│   ├── Algo.md
+│   ├── Camera.md
+│   ├── Device.md
+│   ├── Federal.md
+│   ├── Offline.md
+│   ├── Online.md
+│   ├── Rule.md
+│   ├── System.md
+│   └── User.md
+└── _sidebar.md
+
+1 directory, 10 files
+```
