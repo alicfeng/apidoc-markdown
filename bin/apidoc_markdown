@@ -73,7 +73,7 @@ foreach ($group_api_data as $group_name => $api_data) {
         if (array_key_exists('header', $item_data)) {
             if (array_key_exists('fields', $item_data['header'])) {
                 if (array_key_exists('Header', $item_data['header']['fields'])) {
-                    fwrite($api_doc_markdown_file, "\n###### 请求头部\n");
+                    fwrite($api_doc_markdown_file, "\n###### 请求头部\n\n");
                     fwrite($api_doc_markdown_file, "| 字段 | 类型 | 必选 | 默认值 | 描述 | \n|:----:|:----:|:----:|:----:|:----:|\n");
                     foreach ($item_data['header']['fields']['Header'] as $field) {
                         fwrite($api_doc_markdown_file, '| `' . $field['field'] . '` | `' . $field['type'] . '` | ' . ($field['optional'] ? '否' : '是') . ' | ' . $field['defaultValue'] . ' | ' . $field['description'] . " | \n");
@@ -84,7 +84,7 @@ foreach ($group_api_data as $group_name => $api_data) {
 
         // dom.request_parameters
         if (array_key_exists('parameter', $item_data)) {
-            fwrite($api_doc_markdown_file, "\n###### 请求参数\n");
+            fwrite($api_doc_markdown_file, "\n###### 请求参数\n\n");
             fwrite($api_doc_markdown_file, "| 字段 | 类型 | 必选 | 描述 | \n|:----:|:----:|:----:|:----:|\n");
             foreach ($item_data['parameter']['fields']['Parameter'] as $field) {
                 fwrite($api_doc_markdown_file, '| `' . $field['field'] . '` | `' . $field['type'] . '` | ' . ($field['optional'] ? '否' : '是') . ' | ' . $field['description'] . " | \n");
@@ -96,7 +96,7 @@ foreach ($group_api_data as $group_name => $api_data) {
             if (array_key_exists('fields', $item_data['success'])) {
                 fwrite($api_doc_markdown_file, "\n###### 响应参数\n");
                 foreach ($item_data['success']['fields'] as $key => $response_packages) {
-                    fwrite($api_doc_markdown_file, "- $key\n");
+                    fwrite($api_doc_markdown_file, "- $key\n\n");
                     fwrite($api_doc_markdown_file, "| 字段 | 类型 | 必选 | 描述 | \n|----|:----:|:----:|:----:|\n");
                     foreach ($response_packages as $field) {
                         fwrite($api_doc_markdown_file, '| `' . $field['field'] . '` | `' . $field['type'] . '` | ' . ($field['optional'] ? '否' : '是') . ' | ' . $field['description'] . " | \n");
@@ -106,7 +106,7 @@ foreach ($group_api_data as $group_name => $api_data) {
 
             //  dom.success_simples
             if (array_key_exists('examples', $item_data['success'])) {
-                fwrite($api_doc_markdown_file, "\n###### 成功响应示例\n");
+                fwrite($api_doc_markdown_file, "\n###### 成功响应示例\n\n");
                 foreach ($item_data['success']['examples'] as $example) {
                     fwrite($api_doc_markdown_file, '- ' . $example['title'] . "\n");
                     fwrite($api_doc_markdown_file, "```json\n" . json_encode(json_decode($example['content']), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n```\n");
@@ -117,9 +117,9 @@ foreach ($group_api_data as $group_name => $api_data) {
         if (array_key_exists('error', $item_data)) {
             if (array_key_exists('examples', $item_data['error'])) {
                 //  dom.error_simples
-                fwrite($api_doc_markdown_file, "\n###### 失败响应示例\n");
+                fwrite($api_doc_markdown_file, "\n###### 失败响应示例\n\n");
                 foreach ($item_data['error']['examples'] as $example) {
-                    fwrite($api_doc_markdown_file, '- ' . $example['title'] . "\n");
+                    fwrite($api_doc_markdown_file, '- ' . $example['title'] . "\n\n");
                     fwrite($api_doc_markdown_file, "```json\n" . json_encode(json_decode($example['content']), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n```\n");
                 }
             }
